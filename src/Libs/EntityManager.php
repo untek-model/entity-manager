@@ -3,6 +3,7 @@
 namespace Untek\Model\EntityManager\Libs;
 
 use Psr\Container\ContainerInterface;
+use Untek\Core\Code\Helpers\DeprecateHelper;
 use Untek\Core\Instance\Helpers\PropertyHelper;
 use Untek\Core\Collection\Interfaces\Enumerable;
 use Untek\Core\Collection\Libs\Collection;
@@ -33,7 +34,7 @@ class EntityManager implements EntityManagerInterface
     public function __construct(
         ContainerInterface $container,
         EntityManagerConfiguratorInterface $entityManagerConfigurator,
-        ContainerConfiguratorInterface $containerConfigurator
+        ContainerConfiguratorInterface $containerConfigurator = null
     )
     {
         $this->container = $container;
@@ -76,6 +77,7 @@ class EntityManager implements EntityManagerInterface
 
     private function findInDefinitions(string $entityClass)
     {
+        DeprecateHelper::softThrow();
         $containerConfig = $this->containerConfigurator->getConfig();
         if (empty($containerConfig['definitions'])) {
             return null;
