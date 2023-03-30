@@ -211,7 +211,8 @@ class EntityManager implements EntityManagerInterface
 
     public function createEntity(string $entityClassName, array $attributes = []): object
     {
-        $entityInstance = $this->container->get($entityClassName);
+        $entityInstance = new $entityClassName();
+//        $entityInstance = $this->container->get($entityClassName);
         if ($attributes) {
             PropertyHelper::setAttributes($entityInstance, $attributes);
         }
