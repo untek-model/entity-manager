@@ -56,10 +56,10 @@ class EntityManager implements EntityManagerInterface
 
     /**
      * @param string $entityClass
-     * @return RepositoryInterface | CrudRepositoryInterface
+     * @return object
      * @throws InvalidConfigException
      */
-    public function getRepository(string $entityClass): RepositoryInterface
+    public function getRepository(string $entityClass): object
     {
         $repositoryDefition = $this->entityManagerConfigurator->entityToRepository($entityClass);
 
@@ -103,7 +103,7 @@ class EntityManager implements EntityManagerInterface
         $repository->loadRelations($collection, $with);
     }
 
-    public function remove(EntityIdInterface $entity): void
+    public function remove(object $entity): void
     {
         $entityClass = get_class($entity);
         $repository = $this->getRepository($entityClass);
@@ -118,14 +118,14 @@ class EntityManager implements EntityManagerInterface
         }
     }
 
-    public function persist(EntityIdInterface $entity): void
+    public function persist(object $entity): void
     {
         $entityClass = get_class($entity);
         $repository = $this->getRepository($entityClass);
         $this->persistViaRepository($entity, $repository);
     }
 
-    public function persistViaRepository(EntityIdInterface $entity, object $repository): void
+    public function persistViaRepository(object $entity, object $repository): void
     {
         $isUniqueDefined = $entity instanceof UniqueInterface && $entity->unique();
 
@@ -173,7 +173,7 @@ class EntityManager implements EntityManagerInterface
         }
     }
 
-    public function insert(EntityIdInterface $entity): void
+    public function insert(object $entity): void
     {
         try {
             $this->checkUniqueExist($entity);
@@ -190,10 +190,11 @@ class EntityManager implements EntityManagerInterface
         $repository->create($entity);
     }
 
-    public function update(EntityIdInterface $entity): void
+    public function update(object $entity): void
     {
         $entityClass = get_class($entity);
         $repository = $this->getRepository($entityClass);
+//        dd($entity);
         $repository->update($entity);
     }
 
@@ -204,7 +205,7 @@ class EntityManager implements EntityManagerInterface
         return $repository->findOneByUnique($entity);
     }
 
-    protected function getRepositoryByClass(string $class): RepositoryInterface
+    protected function getRepositoryByClass(string $class): object
     {
         return $this->container->get($class);
     }
