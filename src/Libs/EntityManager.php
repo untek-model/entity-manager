@@ -143,7 +143,7 @@ class EntityManager implements EntityManagerInterface
         }
     }
 
-    protected function checkUniqueExist(EntityIdInterface $entity)
+    protected function checkUniqueExist(object $entity)
     {
         if (!$entity instanceof UniqueInterface) {
             return;
@@ -175,7 +175,7 @@ class EntityManager implements EntityManagerInterface
 
     public function insert(object $entity): void
     {
-        try {
+        /*try {
             $this->checkUniqueExist($entity);
         } catch (AlreadyExistsException $alreadyExistsException) {
             $e = new UnprocessibleEntityException();
@@ -183,7 +183,7 @@ class EntityManager implements EntityManagerInterface
                 $e->add($fieldName, $alreadyExistsException->getMessage());
             }
             throw $e;
-        }
+        }*/
 
         $entityClass = get_class($entity);
         $repository = $this->getRepository($entityClass);
