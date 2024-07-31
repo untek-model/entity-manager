@@ -78,7 +78,7 @@ class EntityManager implements EntityManagerInterface
     private function findInDefinitions(string $entityClass)
     {
         DeprecateHelper::softThrow();
-        $containerConfig = $this->containerConfigurator->getConfig();
+        /*$containerConfig = $this->containerConfigurator->getConfig();
         if (empty($containerConfig['definitions'])) {
             return null;
         }
@@ -87,7 +87,7 @@ class EntityManager implements EntityManagerInterface
                 return $abstract;
             }
         }
-        return null;
+        return null;*/
     }
 
     public function loadEntityRelations(object $entityOrCollection, array $with): void
