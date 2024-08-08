@@ -61,7 +61,7 @@ class EntityManager implements EntityManagerInterface
      */
     public function getRepository(string $entityClass): object
     {
-        $repositoryDefition = $this->entityManagerConfigurator->entityToRepository($entityClass);
+        /*$repositoryDefition = $this->entityManagerConfigurator->entityToRepository($entityClass);
 
         if (!$repositoryDefition) {
             $abstract = $this->findInDefinitions($entityClass);
@@ -70,7 +70,7 @@ class EntityManager implements EntityManagerInterface
             } else {
                 throw new InvalidConfigException("Not found \"{$entityClass}\" in entity manager.");
             }
-        }
+        }*/
         $class = $this->entityManagerConfigurator->entityToRepository($entityClass);
         return $this->getRepositoryByClass($class);
     }
