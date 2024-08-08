@@ -20,9 +20,11 @@ class EntityManagerPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds('repository');
         foreach ($taggedServices as $repositoryInterface => $tags) {
             /** @var ObjectRepository $handlerInstance */
-            $handlerInstance = $container->get($repositoryInterface);
-            $entityClass = $handlerInstance->getClassName();
-            $definition->addMethodCall('bindEntity', [$entityClass, $repositoryInterface]);
+            if($container->has($repositoryInterface)) {
+                $handlerInstance = $container->get($repositoryInterface);
+                $entityClass = $handlerInstance->getClassName();
+                $definition->addMethodCall('bindEntity', [$entityClass, $repositoryInterface]);
+            }
         }
     }
 }
