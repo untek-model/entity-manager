@@ -4,12 +4,19 @@ namespace Untek\Model\EntityManager;
 
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
+use Symfony\Component\HttpKernel\Bundle\AbstractBundle;
 use Untek\Model\EntityManager\Attribute\AsEntityRepository;
+use Untek\Model\EntityManager\DependencyInjection\EntityManagerPass;
 
 class EntityManagerBundle extends AbstractBundle
 {
+
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+        $container->addCompilerPass(new EntityManagerPass());
+    }
 
     public function loadExtension(array $config, ContainerConfigurator $container, ContainerBuilder $builder): void
     {
