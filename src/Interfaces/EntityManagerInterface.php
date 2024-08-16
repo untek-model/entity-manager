@@ -7,7 +7,7 @@ use Untek\Model\Entity\Interfaces\EntityIdInterface;
 use Untek\Model\Repository\Interfaces\FindOneUniqueInterface;
 use Untek\Model\Repository\Interfaces\RepositoryInterface;
 
-interface EntityManagerInterface extends TransactionInterface, FindOneUniqueInterface
+interface EntityManagerInterface extends TransactionInterface//, FindOneUniqueInterface
 {
 
     public function getRepository(string $entityClass): object;
